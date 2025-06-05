@@ -9,4 +9,4 @@ def guardar_canciones_por_colaborador_diccionario(lista_diccionarios, colaborado
                 fila = [str(cancion[key]) for key in encabezados]
                 archivo.write(",".join(fila) + "\n")
 
-    print(f"✅ Archivo 'colaboradores.csv' creado con canciones que incluyen a '{colaborador_buscado}'.")
+    print(f" Archivo 'colaboradores.csv' creado con canciones que incluyen a '{colaborador_buscado}'.")

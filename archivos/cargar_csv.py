@@ -1,5 +1,5 @@
 def guardar_y_mostrar_datos_csv() -> list:
-    ruta = "CSV-JSON/archivos/datos.csv"
+    ruta = "CSV-JSON/datos.csv"
 
     with open(ruta, "r", encoding="utf-8") as archivo:
         matriz = []

@@ -1,38 +1,65 @@
+from archivos.cargar_datos import cargar_normalizar_y_guardar_datos
+from functions.mostrar_temas import mostrar_temas
+from functions.mostrar_temas import mostrar_temas
+from functions.ordenar_temas_por_duracion import ordenar_temas_por_duracion
+from functions.calcular_promedio_de_visitas import promedio_vistas
+from functions.maxima_minima import videos_maximas_vistas,videos_minimas_vistas
+from functions.buscar_por_codigo import buscar_video_por_codigo
 from validaciones.menu_copy import menu
 
-mensaje_error = "\nError: Primero debe normalizar los datos. Seleccione la opcion 1 para normalizar los datos de los videos."
+datos_cargados = False
+promedios = None
+mensaje_error = "\nError: Primero debe normalizar los datos, ingrese la opcion 1."
 
 while True:
-    opcion = menu("\nMENU PRINCIPAL\n1 - Normalizar datos.\n2 - Mostrar temas.\n3 - Ordenar Temas.\n4 - Mostrar datos ordenados por promedio del estudiante.\n5 - Mostrar materia/s con mayor promedio.\n6 - Buscar estudiante por legajo.\n7 - Mostrar calificaciones repetidas en una asignatura.\n8 - Salir del programa.")
+    opcion = menu("\nMENU PRINCIPAL\n1 - Normalizar datos.\n2 - Mostrar todos los temas.\n3 - Ordenar temas.\n4 - Calcular promedio de vistas.\n5 - Ver video con mayor cantidad de vistas.\n6 - Ver video con menor cantidad de vistas.\n7 - Buscar por codigo.\n8 - Buscar tema por colaborador.\n9 - Ver por mes de lanzamiento.\n10 - Guardar en JSON.\n11 - Salir.")
 
     match opcion:
         case 1:
-            normalizar_datos(playlist_lady_gaga)
+            temas = cargar_normalizar_y_guardar_datos()
+            datos_cargados = True
         case 2:
-            mostrar_temas(playlist_lady_gaga)
+            if datos_cargados:
+                mostrar_temas(temas)
+            else:
+                print(mensaje_error)
         case 3:
-            ordenar_temas(playlist_lady_gaga)
+            if datos_cargados:
+                ordenar_temas_por_duracion(temas)
+            else:
+                print(mensaje_error)
         case 4:
-            #calcular_promedio_de_vistas()
-            pass
+            if datos_cargados:
+                promedio_vistas(temas)
+            else:
+                print(mensaje_error)
         case 5:
-            #ver_video_maxima_reproduccion()
-            pass
+            if datos_cargados:
+                videos_maximas_vistas(temas)
+            else:
+                print(mensaje_error)
         case 6:
-            #ver_video_minima_reproducion()
-            pass
+            if datos_cargados:
+                videos_minimas_vistas(temas)
+            else:
+                print(mensaje_error)
         case 7:
-            #buscar_por_codigo()
-            pass
+            if datos_cargados:
+                buscar_video_por_codigo(temas)
+            else:
+                print(mensaje_error)
         case 8:
-            #mostrar_videos_por_colaborador()
+            # print("Saliendo del programa...")
+            # break
             pass
         case 9:
-            #mostrar_video_por_mes_de_lanzamiento()
+            # print("Opcion invalida. Intente nuevamente.")
             pass
         case 10:
-            #print("Saliendo del programa...")
+            # print("Opcion invalida. Intente nuevamente.")
+            pass
+        case 11:
+            # print("Opcion invalida. Intente nuevamente.")
             pass
         case _:
-            #print("Opcion invalida. Intente nuevamente.")
-            pass
+            print("Opcion invalida. Intente nuevamente.")

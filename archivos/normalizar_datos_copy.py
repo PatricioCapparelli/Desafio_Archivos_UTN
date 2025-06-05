@@ -1,23 +1,18 @@
-from datetime import datetime
+from archivos.individuales import *
 
-def normalizar_datos(playlist: list) -> None:
+def normalizar_datos(playlist: list) -> list:
+    matriz = []
     for video in playlist:
-        video["Título"] = video["Tema"].split("|")[0].strip() if "|" in video["Tema"] else video["Tema"]
+        campo_colab_titulo = video[0]
+        video_normalizado = {
+            "Título": normalizar_titulo(campo_colab_titulo),
+            "Colaboradores": normalizar_colaboradores(campo_colab_titulo),
+            "Vistas": normalizar_vistas(video[2]),
+            "Duración": normalizar_duracion(video[3]),
+            "Link": normalizar_link(video[4]),
+            "Fecha de lanzamiento": normalizar_fecha(video[5])
+        }
+        matriz.append(video_normalizado)
         
-        video["Colaboradores"] = video.get("Colaboradores", [])
-        
-        vistas_str = video["Vistas"].split()[0]
-        video["Vistas"] = int(float(vistas_str) * 1000000) if "millones" in video["Vistas"] else int(vistas_str)
-        
-        minutos, segundos = map(int, video["Duracion"].split(":"))
-        video["Duración"] = minutos * 60 + segundos
-        
-        video["Link"] = video["Link Youtube"]
-        
-        fecha_str = video["Fecha lanzamiento"]
-        video["Fecha de lanzamiento"] = datetime.strptime(fecha_str, "%Y-%m-%d").date()
-        
-        campos_antiguos = ["Tema", "Duracion", "Link Youtube", "Fecha lanzamiento"]
-        for campo in campos_antiguos:
-            video.pop(campo, None)
-
+    print(matriz)
+    return matriz
