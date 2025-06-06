@@ -1,56 +1,31 @@
-
 def buscar_colaboradores(temas: list) -> None:
-    entrada = input("Ingrese el nombre del colaborador: ").strip()
-    
-    nombre = ""
-    for letra in entrada:
-        codigo = ord(letra)
-        if 65 <= codigo <= 90:
-            nombre += chr(codigo + 32)
-        else:
-            nombre += letra
+    entrada = input("Ingrese el nombre del colaborador: ").strip().lower() 
 
     encontrados = False
-    resultados = []  #csv
+    resultados = []
 
     for tema in temas:
-        claves = list(tema.keys())
-        tiene_colab = False
-        tiene_titulo = False
+        claves = tema.keys()
+        colaboradores_existe = False
+        titulo_existe = False
 
-        for k in claves:
-            if k == "Colaboradores":
-                tiene_colab = True
-                clave_colab = k
-            elif k == "Título":
-                tiene_titulo = True
-                clave_titulo = k
+        for clave in claves:
+            if clave == "Colaboradores":
+                colaboradores_existe = True
+            if clave == "Título":
+                titulo_existe = True
 
-        if tiene_colab and tiene_titulo:
-            colaboradores = tema[clave_colab]
-            titulo = tema[clave_titulo]
+        if colaboradores_existe and titulo_existe:
+            colaboradores = tema["Colaboradores"]
+            titulo = tema["Título"]
 
-            if type(colaboradores) == list:
-                for colab in colaboradores:
-                    comparado = ""
-                    for letra in colab:
-                        codigo = ord(letra)
-                        if 65 <= codigo <= 90:
-                            comparado += chr(codigo + 32)
-                        else:
-                            comparado += letra
-
-                    if len(nombre) == len(comparado):
-                        iguales = True
-                        for i in range(len(nombre)):
-                            if nombre[i] != comparado[i]:
-                                iguales = False
-                                break
-                        if iguales:
-                            print("Título:", titulo)
-                            resultados.append([entrada, titulo])  
-                            encontrados = True
-                            break
+            if isinstance(colaboradores, list):
+                for colaborador in colaboradores:
+                    if entrada == colaborador.strip().lower():
+                        print("Título:", titulo)
+                        resultados.append([entrada, titulo])
+                        encontrados = True
+                        break 
 
     if encontrados == False:
         print("No se encontraron temas con ese colaborador.")
