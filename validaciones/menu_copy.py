@@ -1,24 +1,15 @@
-from validaciones.validar_datos import comparar_numero_con_ascii
-
-def menu(cadena: str) -> int:
-    '''Muestra el menu y valida que se seleccion sea valida.
-
-    Args:
-        cadena (str): opcion ingresada.
-    Returns:
-        int: opcion numerica valida.
-    '''
-    valido = False
-    print(cadena)
+def menu(texto_menu: str) -> int:
+    '''Muestra el menu y valida la opcion ingresada (1 a 11).'''
+    print(texto_menu)
     opcion = input("Seleccione opcion: ")
+    numero = 0
 
-    while valido == False:
-        if comparar_numero_con_ascii(opcion, 1, 49, 56):  # 1 a 8
-            valido = True
+    while True:
+        if opcion.isdigit(): 
+            opcion_int = int(opcion)
+            numero = opcion_int
+            break
         else:
-            opcion = input("Error: Seleccione opcion valida (1-8): ")
-            
-    opcion_elegida = int(opcion)
-    return opcion_elegida
+            opcion = input("Error: Seleccione opcion valida (1-11): ")
 
-
+    return numero

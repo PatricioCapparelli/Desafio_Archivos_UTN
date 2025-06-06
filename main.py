@@ -1,10 +1,13 @@
 from archivos.cargar_datos import cargar_normalizar_y_guardar_datos
+from archivos.guardar_en_json import guardar_todas_las_canciones_en_json
 from functions.mostrar_temas import mostrar_temas
 from functions.mostrar_temas import mostrar_temas
 from functions.ordenar_temas_por_duracion import ordenar_temas_por_duracion
 from functions.calcular_promedio_de_visitas import promedio_vistas
 from functions.maxima_minima import videos_maximas_vistas,videos_minimas_vistas
 from functions.buscar_por_codigo import buscar_video_por_codigo
+from functions.buscar_colaborador import buscar_colaboradores
+from functions.buscar_por_mes import buscar_por_mes
 from validaciones.menu_copy import menu
 
 datos_cargados = False
@@ -49,17 +52,21 @@ while True:
             else:
                 print(mensaje_error)
         case 8:
-            # print("Saliendo del programa...")
-            # break
-            pass
+            if datos_cargados:
+                buscar_colaboradores(temas)
+            else:
+                print(mensaje_error)
         case 9:
-            # print("Opcion invalida. Intente nuevamente.")
-            pass
+            if datos_cargados:
+                buscar_por_mes(temas)
+            else:
+                print(mensaje_error)
         case 10:
-            # print("Opcion invalida. Intente nuevamente.")
-            pass
+            if datos_cargados:
+                guardar_todas_las_canciones_en_json(temas)
+            else:
+                print(mensaje_error)
         case 11:
-            # print("Opcion invalida. Intente nuevamente.")
-            pass
+            break
         case _:
             print("Opcion invalida. Intente nuevamente.")

@@ -23,5 +23,5 @@ def buscar_video_por_codigo(temas: list) -> None:
                 print(f"{clave}: {tema[clave]}")
             encontrado = True
             break
-    if not encontrado:
+    if encontrado == False:
         print(f"No se encontro video con codigo: {codigo_ingresado}")
